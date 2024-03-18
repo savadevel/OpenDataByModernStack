@@ -1,7 +1,9 @@
 /tmp
 /.idea
 /dwh-data
+/dmt-data
 /airflow/*
 !/airflow/dags
 /airflow/dags/__pycache__
 /airflow/dags/dbt/logs
+

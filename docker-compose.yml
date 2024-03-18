@@ -9,17 +9,35 @@ services:
     ports:
       - "8080:8080"
     command: airflow standalone
+    depends_on:
+      - dwh
+      - dmt
 
   dwh:
     image: postgres
     restart: always
     environment:
-      POSTGRES_DB: ${DB_NAME}
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_PASSWORD: ${DB_PASS}
+      POSTGRES_DB: ${PG_NAME}
+      POSTGRES_USER: ${PG_USER}
+      POSTGRES_PASSWORD: ${PG_PASS}
       PGDATA: "/var/lib/postgresql/data/pgdata"
     volumes:
       - ./dwh:/docker-entrypoint-initdb.d
       - ./dwh-data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+
+  dmt:
+    image: clickhouse/clickhouse-server
+    restart: always
+    environment:
+      CLICKHOUSE_DB: ${CH_NAME}
+      CLICKHOUSE_USER: ${CH_USER}
+      CLICKHOUSE_PASSWORD: ${CH_PASS}
+      CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT: ${CH_DEFAULT_ACCESS_MANAGEMENT} 
+    volumes:
+      - ./dmt:/docker-entrypoint-initdb.d
+      - ./dmt-data:/var/lib/clickhouse/
+    ports:
+      - "9000:9000"
+      - "8123:8123"
