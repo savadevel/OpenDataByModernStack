@@ -47,12 +47,12 @@ def exctract_json_from_zip(response):
     return open_data
     
 with DAG(
-        dag_id='load_open_data',
+        dag_id='load_open_data_to_stg',
         default_args=default_args,
         description='Load open data by transport from Moscow government',
         catchup=False,
         start_date=datetime(2024, 3, 17),
-        schedule_interval=timedelta(days=1)
+        schedule_interval=None
 ) as dag:
     request_open_data = HttpOperator(
         task_id='request_open_data',
