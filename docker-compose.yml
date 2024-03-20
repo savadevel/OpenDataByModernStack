@@ -41,3 +41,11 @@ services:
     ports:
       - "9000:9000"
       - "8123:8123"
+
+  bi:
+    image: apache/superset
+    restart: always
+    environment:
+      SUPERSET_SECRET_KEY: dfprCyFJX5VyzbqTLhr4oBjdLcMuAg1yui9aP1g34t6XojRnBhdUN1/4
+    ports:
+      - "8088:8088"
