@@ -1,0 +1,8 @@
+version: 2
+
+sources:
+  - name: open_data
+    loader: clickhouse
+
+    tables:
+      - name: dwh_dds_traffic
